@@ -1,6 +1,11 @@
 -- migrations/001_init.sql
--- BUG: "orders.account_id" is a FOREIGN KEY to "accounts", but the "accounts"
--- table is never created anywhere. A migration must create "accounts" BEFORE "orders".
+CREATE TABLE accounts (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
   account_id INTEGER NOT NULL REFERENCES accounts(id),
